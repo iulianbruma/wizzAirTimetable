@@ -1,0 +1,47 @@
+server:
+  servlet:
+    context-path: /wizzAirTimeTable
+threadPoolSize: 4
+wizz-air:
+  url: https://be.wizzair.com/9.16.2/Api/search/timetable
+  countries:
+    Viena: VIE
+    Bruxelles Charleroi: CRL
+    Larnaca: LCA
+    Billund: BLL
+    Basel-Mulhouse-Freiburg: BSL
+    Dubai: DWC
+    Lyon-Saint-Exupery: LYS
+    Paris Beauvais: BVA
+    Berlin Schonefeld: SXF
+    Dortmund: DTM
+    Frankfurt Hahn: HHN
+    Koln: CGN
+    Memmingen/Munchen Vest: FMM
+    Nurnberg: NUE
+    Atena: ATH
+    Tel-Aviv: TLV
+    Bari: BRI
+    Bologna: BLQ
+    Milano Bergamo: BGY
+    Roma Ciampino: CIA
+    Venetia Treviso: TSF
+    Malta: MLA
+    Eindhoven: EIN
+    Birmingham: BHX
+    Doncaster/Sheffield: DSA
+    Liverpool: LPL
+    Londra Gatwick: LGW
+    Londra Luton: LTN
+    Alicante: ALC
+    Barcelona El Prat: BCN
+    Madrid: MAD
+    Malaga: AGP
+    Palma de Mallorca: PMI
+    Valencia: VLC
+    Zaragoza: ZAZ
+    Malmo: MMX
+    FRIEDRICHSHAFEN: FDH
+    Viena2: VIE
+    Bruxelles Charleroi2: CRL
+    Larnaca2: LCA

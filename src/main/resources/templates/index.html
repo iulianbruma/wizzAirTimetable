@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>WizzAirFlights</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">WizzAir Flights</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Generate all possible flights from Cluj</h1>
+        <div th:if="${error!=null}" class="alert alert-danger">
+            <p th:text="${error}"/>
+        </div>
+        <div class="alert alert-success">
+            The flights <strong><span th:text="${statusMsg}"></span></strong>.
+        </div>
+        <div class="row">
+            <form id="batchForm" class="needs-validation" action="#" th:action="@{/flights}" th:object="${flightRequest}" method="post">
+                <div class="form-group form-row col-md-12">
+                    <div class="form-group col-md-3">
+                        <label>Departure Month</label>
+                        <select id="departureMonth" class="form-control" th:field="*{departureMonth}">
+                            <option th:value="1">January</option>
+                            <option th:value="2">February</option>
+                            <option th:value="3">March</option>
+                            <option th:value="4">April</option>
+                            <option th:value="5">May</option>
+                            <option th:value="6">June</option>
+                            <option th:value="7">July</option>
+                            <option th:value="8">August</option>
+                            <option th:value="9">September</option>
+                            <option th:value="10">October</option>
+                            <option th:value="11">November</option>
+                            <option th:value="12">December</option>
+                        </select>
+                        <spane th:if="${#fields.hasErrors('departureMonth')}" th:errors="*{departureMonth}"></spane>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Departure Year</label>
+                        <select id="departureYear" class="form-control" th:field="*{departureYear}">
+                            <option th:value="2019">2019</option>
+                            <option th:value="2020">2020</option>
+                            <option th:value="2021">2021</option>
+                            <option th:value="2022">2022</option>
+                            <option th:value="2023">2023</option>
+                            <option th:value="2024">2024</option>
+                            <option th:value="2025">2025</option>
+                        </select>
+                        <spane th:if="${#fields.hasErrors('departureYear')}" th:errors="*{departureYear}"></spane>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Arrival Month</label>
+                        <select id="arrivalMonth" class="form-control" th:field="*{arrivalMonth}">
+                            <option th:value="1">January</option>
+                            <option th:value="2">February</option>
+                            <option th:value="3">March</option>
+                            <option th:value="4">April</option>
+                            <option th:value="5">May</option>
+                            <option th:value="6">June</option>
+                            <option th:value="7">July</option>
+                            <option th:value="8">August</option>
+                            <option th:value="9">September</option>
+                            <option th:value="10">October</option>
+                            <option th:value="11">November</option>
+                            <option th:value="12">December</option>
+                        </select>
+                        <spane th:if="${#fields.hasErrors('arrivalMonth')}" th:errors="*{arrivalMonth}"></spane>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Arrival Year</label>
+                        <select id="arrivalYear" class="form-control" th:field="*{arrivalYear}">
+                            <option th:value="2019">2019</option>
+                            <option th:value="2020">2020</option>
+                            <option th:value="2021">2021</option>
+                            <option th:value="2022">2022</option>
+                            <option th:value="2023">2023</option>
+                            <option th:value="2024">2024</option>
+                            <option th:value="2025">2025</option>
+                        </select>
+                        <spane th:if="${#fields.hasErrors('arrivalYear')}" th:errors="*{arrivalYear}"></spane>
+                    </div>
+                </div>
+                <!--<div class="form-group form-row col-md-12">
+                    <div class="form-group col-md-2">
+                        <label>Start mode: </label>
+                    </div>
+                    <div class="form-group col-md-10">
+                        <label class="radio-inline"><input type="radio" id="processMode" th:value="PROCESS" name="startMode" th:checked="true"><b>Process</b></label>
+                        <label class="radio-inline"><input type="radio" id="retryMode" th:value="RETRY" name="startMode"><b>Retry</b></label>
+                        <spane th:if="${#fields.hasErrors('startMode')}" th:errors="*{startMode}"></spane>
+                    </div>
+                </div>-->
+                <div class="form-group form-row col-md-12" style="clear: both;">
+                    <div class="form-group col-md-4">
+                        <input type="submit" id="submitButton" class="btn btn-primary form-control" value="Start"
+                               th:disabled="${started}"/>
+                    </div>
+                    <!--<div class="form-group col-md-4">
+                        <input type="button" onclick="stopBatch()" class="btn btn-danger form-control" style="color: #000;" value="STOP"
+                               th:disabled="${stopped}"/>
+                    </div>-->
+                </div>
+            </form>
+            <form th:action="@{/stop}" th:method="get">
+                <input type="submit" id="stopButton" hidden="hidden"/>
+            </form>
+        </div>
+        <div class="row">
+            <!--<h1>Batch History</h1>-->
+
+            <!--<table class="table table-striped col-md-12">
+                <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="hist, iter : ${history}">
+                    <td th:text="${iter.count}"></td>
+                    <td th:text="${hist}"></td>
+                </tr>
+                </tbody>
+
+            </table>-->
+        </div>
+    </div>
+</div>
+<div class="footer navbar-fixed-bottom" style="height: 6%; background-color: #222;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 widget" style="color: #fff; margin-top: 1%">
+                © 2019 | Created by <b>Iulian Bruma</b>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script th:inline="javascript">
+    window.setTimeout(function() {
+        document.location.reload(true);
+    }, 120000);
+
+    function stopBatch() {
+        $('#stopButton').click();
+    }
+</script>
+</body>
+</html>
